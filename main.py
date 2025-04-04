@@ -1,13 +1,13 @@
 import time
 import glob
 import logging
-import cv2
 import numpy as np
+import cv2
 import pynput
 from PIL import ImageGrab
 
 # Configurable Parameters
-IMAGEPATH = "images"  
+IMAGEPATH = "images"
 DELAY = 0.1 
 CONFIDENCE = 0.9
 TOGGLE_KEY = pynput.keyboard.Key.f2  # Don't Change
