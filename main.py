@@ -4,9 +4,12 @@ import logging
 import numpy as np
 import cv2
 import pynput
+import ctypes
 from PIL import ImageGrab
 
 # Configurable Parameters
+ctypes.windll.user32.SetProcessDPIAware()
+
 IMAGEPATH = "images"
 DELAY = 0.1 
 CONFIDENCE = 0.9
@@ -104,6 +107,7 @@ class MonopolyBot:
         mouse.position = currentPosition
 
 def main():
+
     MonopolyBot()
 
 if __name__ == "__main__":
