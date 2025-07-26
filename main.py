@@ -47,7 +47,6 @@ class MonopolyBot:
     def toggle_running(self) -> None:
         self.running = not self.running
         status = "Started" if self.running else "Stopped"
-        print(f"{status}\n")
         logger.info(f"Bot {status.lower()}.")
 
     def process_images(self) -> None:
@@ -88,13 +87,12 @@ class MonopolyBot:
         point = self.find(image)
 
         if point:
-            print(f"Scanning for {path} -> ({point[0]}, {point[1]})")
-            # Move the mouse to the found point and click using OpenCV
             self.click_at(point)
-            logger.info(f"Clicked on {path} at ({point[0]}, {point[1]}).")
+            path = path.split("\\")[1]
+            print(f"\nClicked on {path} at ({point[0]}, {point[1]})")
             return True
-
-        print(f"Scanning for {path}")
+        else :
+            print(".", end='',flush=True)
         return False
 
     def click_at(self, point: tuple) -> None:
