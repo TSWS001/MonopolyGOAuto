@@ -44,7 +44,6 @@ class MonopolyBot:
     def toggle_running(self) -> None:
         self.running = not self.running
         status = "Started" if self.running else "Stopped"
-        print(f"{status}\n")
         logger.info(f"Bot {status.lower()}.")
 
     def process_images(self) -> None:
