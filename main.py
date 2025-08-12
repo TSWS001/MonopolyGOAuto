@@ -1,3 +1,4 @@
+import os
 import time
 import glob
 import logging
@@ -5,9 +6,18 @@ import numpy as np
 import cv2
 import pynput
 from PIL import ImageGrab
+import sys, os
 
 # Configurable Parameters
-IMAGEPATH = "images"
+if getattr(sys, 'frozen', False):
+    # Si está empaquetado como .exe
+    BASE_PATH = sys._MEIPASS
+else:
+    # Si se ejecuta como script normal
+    BASE_PATH = os.path.abspath(".")
+
+IMAGEPATH = os.path.join(BASE_PATH, "images")
+# Configurable Parameters
 DELAY = 0.1 
 CONFIDENCE = 0.9
 TOGGLE_KEY = pynput.keyboard.Key.f2  # Don't Change
@@ -54,7 +64,7 @@ class MonopolyBot:
                 break
 
     def get_sorted_images(self) -> list:
-        return sorted(glob.glob(f"{self.images_path}/*.png"))
+        return sorted(glob.glob(os.path.join(self.images_path, "*.png")))
 
     def load_image(self, path: str) -> np.ndarray:
         if path not in self.cache:
@@ -86,8 +96,8 @@ class MonopolyBot:
         if point:
             # Move the mouse to the found point and click using OpenCV
             self.click_at(point)
-            path = path.split("\\")[1]
-            print(f"\nClicked on {path} at ({point[0]}, {point[1]})")
+            path_name = os.path.basename(path)
+            print(f"\nClicked on {path_name} at ({point[0]}, {point[1]})")
             return True
         else :
             print(".", end='',flush=True)
